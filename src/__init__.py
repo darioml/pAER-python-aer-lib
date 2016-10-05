@@ -40,13 +40,17 @@ class aefile(object):
                 line = f.readline()
 
             if aer_version != '2':
-                raise Exception('Invalid AER version. Expected 2, got %s' % aer_version)
+                raise Exception('Invalid AER version. '
+                                'Expected 2, got {}'.format(aer_version))
 
             f.seek(0, 2)
             numEvents = math.floor((f.tell() - current) / 8)
 
             if numEvents > self.max_events:
-                print('There are %i events, but max_events is set to %i. Will only use %i events.' % (numEvents, self.max_events, self.max_events))
+                print('There are {} events, but max_events is set to {}. '
+                      'Will only use {} events.'.format(numEvents,
+                                                        self.max_events,
+                                                        self.max_events))
                 numEvents = self.max_events
 
             f.seek(current)
@@ -158,7 +162,9 @@ class aedata(object):
         return rtn
 
     def __repr__(self):
-        return "%i total [x,y,t,ts]: [%s, %s, %s, %s]" % (len(self.x), self.x, self.y, self.t, self.ts)
+        return "%i total [x,y,t,ts]: [%s, %s, %s, %s]".format(len(self.x),
+                                                              self.x, self.y,
+                                                              self.t, self.ts)
 
     def __len__(self):
         return len(self.x)
@@ -238,10 +244,11 @@ def create_pngs(data, prepend, path="", step=3000, dim=(128, 128)):
 
 def concatenate(a_tuple):
     rtn = aedata()
-    rtn.x = np.concatenate(tuple([a_tuple[i].x for i in range(len(a_tuple))]))
-    rtn.y = np.concatenate(tuple([a_tuple[i].y for i in range(len(a_tuple))]))
-    rtn.t = np.concatenate(tuple([a_tuple[i].t for i in range(len(a_tuple))]))
-    rtn.ts = np.concatenate(tuple([a_tuple[i].ts for i in range(len(a_tuple))]))
+    n = len(a_tuple)
+    rtn.x = np.concatenate(tuple([a_tuple[i].x for i in range(n)]))
+    rtn.y = np.concatenate(tuple([a_tuple[i].y for i in range(n)]))
+    rtn.t = np.concatenate(tuple([a_tuple[i].t for i in range(n)]))
+    rtn.ts = np.concatenate(tuple([a_tuple[i].ts for i in range(n)]))
     return rtn
 
     # np.concatenate(a_tuple)
