@@ -26,6 +26,8 @@ setup(
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Environment :: Console",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
@@ -36,6 +38,7 @@ setup(
     install_requires=[
         'numpy',
         'scipy',
-        'matplotlib'
+        'matplotlib',
+        'Pillow'  # N.B. This cannot coexist with PIL
     ]
 )
