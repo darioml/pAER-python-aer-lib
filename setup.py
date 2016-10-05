@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-Author: Dario ML
+Author: Dario ML, bdevans
 Program: SETUP.PY
 Date: Saturday, June 06, 2014
 Description: Setup and install TD algorithms.
@@ -8,19 +8,25 @@ Description: Setup and install TD algorithms.
 
 from distutils.core import setup
 
-setup(name='python-aer',
-    version='0.1.2',
+setup(
+    name='python-aer',
+    version='0.1.3',
     author="Dario Magliocchetti",
     author_email="darioml1911@gmail.com",
     url="https://github.com/darioml/pAER-python-aer-lib",
     description='Python Address Event Representation (AER) Library',
-    long_description='This package provides tools required to visulate, manipulate and use address event representational data (.aedat format). ',
-    package_dir={"paer" : "src"},
+    long_description='''This package provides tools required to visulise,
+                        manipulate and use address event representational data
+                        (.aedat format). ''',
+    package_dir={"paer": "src"},
     packages=["paer"],
     license="GPL 2.0",
     classifiers=[
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
         "Environment :: Console",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Intended Audience :: Developers",
