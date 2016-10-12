@@ -54,13 +54,29 @@ class aefile(object):
                 numEvents = self.max_events
 
             f.seek(current)
-
+            j = 0
             timestamps = np.zeros(numEvents)
             data = np.zeros(numEvents)
 
+            # print(numEvents)
             for i in range(int(numEvents)):
-                data[i] = int(f.read(4).encode('hex'), 16)
-                timestamps[i] = int(f.read(4).encode('hex'), 16)
+                f.seek(current+8*i)
+                # data[i] = int(f.read(4).encode('hex'), 16)
+                # timestamps[i] = int(f.read(4).encode('hex'), 16)
+
+                cur_data = int(f.read(4).encode('hex'), 16)
+                cur_timestamp = int(f.read(4).encode('hex'), 16)
+                if j > 0:
+                    time_diff = cur_timestamp - timestamps[j-1]
+                    if 0 <= time_diff <= 1e8:
+                        data[j] = cur_data
+                        timestamps[j] = cur_timestamp
+                        j += 1
+
+                elif j == 0:
+                    data[j] = cur_data
+                    timestamps[j] = cur_timestamp
+                    j += 1
 
             return data, timestamps
 
@@ -79,8 +95,10 @@ class aefile(object):
                     f.write(item)
                 # print('\n\n')
                 # f.write('\n\n')  # Was this meant to write to the file?
+                current = f.tell()
                 num_items = len(data)
                 for i in range(num_items):
+                    f.seek(current+8*i)
                     f.write(hex(int(data[i]))[2:].zfill(8).decode('hex'))
                     f.write(hex(int(ts[i]))[2:].zfill(8).decode('hex'))
 
