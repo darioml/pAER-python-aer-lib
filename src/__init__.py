@@ -14,9 +14,6 @@ import time
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-# TODO: Generalise to process off-events
-# TODO: Add function to combine on and off-events
-
 
 class aefile(object):
     def __init__(self, filename, max_events=1e6):
@@ -249,6 +246,45 @@ class aedata(object):
     def merge_events(self):
         rtn = copy.deepcopy(self)
         rtn.t = np.zeros(len(self.t))
+        return rtn
+    
+    # Takes n elements from dataset
+    def take(self, n):
+        if (n <= len(self)):
+            return self.make_sparse(len(self)/n)
+        else:
+            print('Number of desired elements more than available')
+            return None
+
+    # Takes n elements from dataset
+    # Alternative version, slightly slower, but returned timestamps
+    # are distributed more uniformly
+    def take_v2(self, n):
+        if n > len(self):
+            print('Number of desired elements more than available')
+            return None
+        step = len(self)/n
+        temp = 0
+        rtn = aedata()
+        i = 0.0
+        while(i < len(self)):
+            numt = int(np.floor(i))
+            if temp != numt:
+                rtn.x = np.append(rtn.x, self.x[numt])
+                rtn.y = np.append(rtn.y, self.y[numt])
+                rtn.t = np.append(rtn.t, self.t[numt])
+                rtn.ts = np.append(rtn.ts, self.ts[numt])
+                temp = numt
+            i += step
+        return rtn
+
+    # Shifts and rescales timestamps, keeps starting point by default
+    def change_timescale(self, length, start=None):
+        rtn = copy.deepcopy(self)
+        min = np.min(rtn.ts)
+        if start is None:
+            start = min
+        rtn.ts = np.floor((rtn.ts-min)/((np.max(rtn.ts)-min)/length)+start)
         return rtn
 
 
