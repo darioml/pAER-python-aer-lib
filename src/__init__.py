@@ -224,6 +224,33 @@ class aedata(object):
     def to_matrix(self, dim=(128, 128)):
         return make_matrix(self.x, self.y, self.t, dim=dim)
 
+    # Returns new aedata object with given event type removed
+    def filter_events(self, type):
+        if type == 'ON':
+            tp = 0
+        elif type == 'OFF':
+            tp = 1
+        else:
+            print('Invalid event type for filter')
+            return None
+    
+        rtn = aedata()
+        
+        for i in range(len(self)):
+            if self.t[i] == tp:
+                rtn.ts = np.append(rtn.ts, [self.ts[i]])
+                rtn.t = np.append(rtn.t, [tp])
+                rtn.x = np.append(rtn.x, [self.x[i]])
+                rtn.y = np.append(rtn.y, [self.y[i]])
+        return rtn
+
+    # Discards type information by setting type to 0 for every event,
+    # returns result in new aedata object
+    def merge_events(self):
+        rtn = copy.deepcopy(self)
+        rtn.t = np.zeros(len(self.t))
+        return rtn
+
 
 def make_matrix(x, y, t, dim=(128, 128)):
     image = np.zeros(dim)
