@@ -1,5 +1,5 @@
 # python-aer-lib
-Set of functions to read AER data freely in python (aedat extention) 
+Set of functions and classes to read Address Event Representation data freely in python (aedat extention) 
 
 ## Install
 
@@ -9,6 +9,6 @@ Dependencies (all via pip)
 - matplotlib
 - Pillow
 
-`pip install git+git://github.com/darioml/pAER-python-aer-lib`
+`pip install git+git://github.com/bio-modelling/py-aer`
 
 ***Coming to PyPI soon***
