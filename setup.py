@@ -13,13 +13,12 @@ setup(
     version='0.1.3',
     author="Dario Magliocchetti",
     author_email="darioml1911@gmail.com",
-    url="https://github.com/darioml/pAER-python-aer-lib",
+    url="https://github.com/bio-modelling/py-aer",
     description='Python Address Event Representation (AER) Library',
-    long_description='''This package provides tools required to visulise,
+    long_description='''This package provides tools required to visualise,
                         manipulate and use address event representational data
                         (.aedat format). ''',
-    package_dir={"paer": "src"},
-    packages=["paer"],
+    packages=["pyaer"],
     license="GPL 2.0",
     classifiers=[
         "Programming Language :: Python :: 2",
