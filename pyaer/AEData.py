@@ -8,6 +8,7 @@ Description: AEData class definition for PyAER
 import numpy as np
 from pyaer import AEFile
 
+
 class AEData(object):
     """Class representation of AER data"""
     def __init__(self, ae_file=None):
@@ -42,7 +43,7 @@ class AEData(object):
         self.x_data = np.delete(self.x_data, key)
         self.y_data = np.delete(self.y_data, key)
         self.t_data = np.delete(self.t_data, key)
-        self.timestamp = np.delete(self.timestamp, key) 
+        self.timestamp = np.delete(self.timestamp, key)
 
     def save_to_mat(self, filename):
         """Save object data to .mat file using scipy"""
@@ -83,9 +84,9 @@ class AEData(object):
 
     def __repr__(self):
         return "{} total [x,y,t,ts]: [{}, {}, {}, {}]".format(len(self.x_data),
-                                                              self.x_data, 
+                                                              self.x_data,
                                                               self.y_data,
-                                                              self.t_data, 
+                                                              self.t_data,
                                                               self.timestamp)
 
     def __len__(self):
@@ -126,9 +127,9 @@ class AEData(object):
         rtn = AEData()
         rtn.timestamp = self.timestamp
         rtn.t_data = self.t_data
-        rtn.x_data = np.floor(self.x_data / 
+        rtn.x_data = np.floor(self.x_data /
                               (self.dimensions[0] / new_dimensions[0]))
-        rtn.y_data = np.floor(self.y_data / 
+        rtn.y_data = np.floor(self.y_data /
                               (self.dimensions[1] / new_dimensions[1]))
 
         return rtn
@@ -153,9 +154,9 @@ class AEData(object):
         else:
             print('Invalid event type for filter')
             return None
-    
+
         rtn = AEData()
-        
+
         for idx, _type in enumerate(self):
             if _type == allow:
                 rtn.timestamp = np.append(rtn.timestamp, [self.timestamp[idx]])

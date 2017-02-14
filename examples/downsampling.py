@@ -4,6 +4,7 @@ import pyaer
 
 FILE = '/path/to/left_to_right_1.aedat'
 
+
 def main():
     """Entry point of downsampling example"""
 

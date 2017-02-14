@@ -4,6 +4,12 @@ Program: pyaer/utils.py
 Description: Miscellaneous utility functions for PyAER
 """
 
+import os
+from PIL import Image
+import numpy as np
+from pyaer import AEData
+
+
 def make_matrix(x_data, y_data, t_data, dim=(128, 128)):
     """Form matrix from x, y, t data with given dimensions
 
@@ -52,8 +58,12 @@ def concatenate(a_tuple):
     """Concatenate all tuple points into an AEData object"""
     rtn = AEData()
     n_points = len(a_tuple)
-    rtn.x_data = np.concatenate(tuple([a_tuple[i].x_data for i in range(n_points)]))
-    rtn.y_data = np.concatenate(tuple([a_tuple[i].y_data for i in range(n_points)]))
-    rtn.t_data = np.concatenate(tuple([a_tuple[i].t_data for i in range(n_points)]))
-    rtn.timestamp = np.concatenate(tuple([a_tuple[i].timestamp for i in range(n_points)]))
+    rtn.x_data = np.concatenate(
+        tuple([a_tuple[i].x_data for i in range(n_points)]))
+    rtn.y_data = np.concatenate(
+        tuple([a_tuple[i].y_data for i in range(n_points)]))
+    rtn.t_data = np.concatenate(
+        tuple([a_tuple[i].t_data for i in range(n_points)]))
+    rtn.timestamp = np.concatenate(
+        tuple([a_tuple[i].timestamp for i in range(n_points)]))
     return rtn

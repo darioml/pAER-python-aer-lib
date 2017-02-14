@@ -13,10 +13,12 @@ FILE4 = 'bottom_to_top_1.aedat'
 # Each ball movement should be .5s long
 ANIMATION_TIME = 0.2
 
-# 3,280 events per second for 16*16 is reasonable for ball movement (might be even too high!)
+# 3,280 events per second for 16*16 is reasonable
+# for ball movement (might be even too high!)
 NUM_EVENTS_P_S = 3280
 
-def get_data(file, min, max, animation_time=ANIMATION_TIME, 
+
+def get_data(file, min, max, animation_time=ANIMATION_TIME,
              num_events=NUM_EVENTS_P_S*ANIMATION_TIME, offset=0):
     """
     Helper function to read a file.
@@ -35,9 +37,11 @@ def get_data(file, min, max, animation_time=ANIMATION_TIME,
 
     actual_time = (sparse.ts[-1]-sparse.ts[0])/1000000
     scale = actual_time/animation_time
-    sparse.ts = (offset * 1000000) + np.round((sparse.timestamp-sparse.timestamp[0])/scale)
+    sparse.ts = ((offset * 1000000) +
+                 np.round((sparse.timestamp - sparse.timestamp[0]) / scale))
 
     return sparse
+
 
 def main():
     """Entry point of example"""

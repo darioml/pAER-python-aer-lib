@@ -8,6 +8,7 @@ import math
 import numpy as np
 from pyaer import AEData
 
+
 class AEFile(object):
     """Class representing AER data file"""
     def __init__(self, filename, max_events=1e6):
@@ -92,8 +93,10 @@ class AEFile(object):
                 num_items = len(data)
                 for i in range(num_items):
                     aef.seek(current+8*i)
-                    aef.write(hex(int(data[i]))[2:].zfill(8).decode('hex'))
-                    aef.write(hex(int(timestamp[i]))[2:].zfill(8).decode('hex'))
+                    aef.write(
+                        hex(int(data[i]))[2:].zfill(8).decode('hex'))
+                    aef.write(
+                        hex(int(timestamp[i]))[2:].zfill(8).decode('hex'))
 
     def unpack(self):
         """Unpack x, y axes and time data from loaded data"""
@@ -107,4 +110,3 @@ class AEFile(object):
             x_data[idx] = 128-((data >> 0x1) & 0x7F)
             y_data[idx] = (data >> 0x8) & 0x7F
         return x_data, y_data, t_data
-
